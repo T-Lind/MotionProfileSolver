@@ -1,5 +1,6 @@
 from scipy.special import gamma
 
+
 def integral(a, b, func, res=0.01):
     """
     Returns the integral from a to b that is used in the differintegral calculation
@@ -20,6 +21,7 @@ def integral(a, b, func, res=0.01):
 
     return summation
 
+
 def fractional_integral(p, t, func, res=0.01):
     """
     Returns the integral from a to b that is used in the differintegral calculation
@@ -34,10 +36,9 @@ def fractional_integral(p, t, func, res=0.01):
 
     current_x = 0
     while current_x <= t:
-        summation += (t - current_x)**(p-1)*func(current_x)
+        summation += (t - current_x) ** (p - 1) * func(current_x)
 
         # Move up one
         current_x += res
 
-    return summation*1/gamma(p)
-
+    return summation / gamma(p) * res
