@@ -7,6 +7,8 @@ from fractional_calculus.differint import fractional_integral
 
 def f(x):
     return np.sin(x) + 2 * np.sin(3 * x) + np.sin(0.3 * x) + x**1.1 - 2*x
+# def f(x):
+#     return 1.8*x+
 
 plt.title("Fractional derivative in Python")
 
