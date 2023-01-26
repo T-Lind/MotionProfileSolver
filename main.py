@@ -5,12 +5,11 @@ import numpy as np
 from fractional_calculus.differint import fractional_integral
 
 
-def f(x):
-    return np.sin(x) + 2 * np.sin(3 * x) + np.sin(0.3 * x) + x**1.1 - 2*x
 # def f(x):
-#     return 1.8*x+
+#     return np.sin(x) + 2 * np.sin(3 * x) + np.sin(0.3 * x) + x**1.1 - 2*x
+def f(x):
+    return 1.2 + 0.3 * x + 0.5 * x ** 2
 
-plt.title("Fractional derivative in Python")
 
 fig = plt.figure()
 plt.subplots_adjust(bottom=0.4)

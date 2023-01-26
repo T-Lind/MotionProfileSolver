@@ -32,6 +32,9 @@ def derivative(a, func, res=0.01):
 
 
 def fractional_integral(p, t, func, res=0.01):
+    if p == 0:
+        return 0
+
     """
     Returns the integral from a to b that is used in the differintegral calculation
     :param p: order of fractional integral to compute
