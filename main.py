@@ -4,7 +4,6 @@ import numpy as np
 from fractional_calculus.differint import fractional_integral
 
 
-
 def f(x):
     return x ** 2
 
