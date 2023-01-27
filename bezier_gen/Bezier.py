@@ -77,35 +77,30 @@ class Bezier:
         return Bezier.recursive_lerp(list_of_lerps, time)
 
 
-class BezierProfiler:
-    def __init__(self, start=0, end=1, start_v=0, end_v=0, time=1, vel_error_margin=0.05, res=0.001):
-        # Create control points with an initial estimate
-        self.ramp_up_t = 0.1
-        self.ramp_down_t = 0.9
+def bezier_profiler(start=0, end=1, start_v=0, end_v=0, time=1, vel_error_margin=0.05, res=0.001):
+    # Create control points with an initial estimate
+    ramp_up_t = 0.1
+    ramp_down_t = 0.9
 
-        self.ramp_up_val = start
-        self.ramp_down_val = start
+    ramp_up_val = start
+    ramp_down_val = start
 
-        self.control_points = [Point(0, start), Point(self.ramp_up_t, start), Point(self.ramp_down_t, end),
+    curve = None
+    deriv = None
+    while True:
+        if deriv is not None:
+            # print(f"Target Vel @ 0: {start_v}, Ramp up value: {self.ramp_up_val} Vel @ 0: {deriv[0]}")
+            if start_v - vel_error_margin > deriv[0]:
+                ramp_up_val += 0.01
+            elif end_v + vel_error_margin < deriv[-1]:
+                ramp_down_val += 0.01
+            else:
+                break
+
+        control_points = [Point(0, start), Point(ramp_up_t, ramp_up_val), Point(ramp_down_t, ramp_down_val),
                                Point(1, end)]
 
-        self.curve = None
-        deriv = None
-        error = 1
-        while True:
-            if deriv is not None:
-                # print(f"Target Vel @ 0: {start_v}, Ramp up value: {self.ramp_up_val} Vel @ 0: {deriv[0]}")
-                if start_v - vel_error_margin > deriv[0]:
-                    self.ramp_up_val += 0.01
-                elif end_v + vel_error_margin < deriv[-1]:
-                    self.ramp_down_val += 0.01
-                else:
-                    break
+        curve = Bezier(control_points)
+        deriv = curve["timewise_deriv"].get_y()
 
-            self.control_points = [Point(0, start), Point(self.ramp_up_t, self.ramp_up_val), Point(self.ramp_down_t, self.ramp_down_val),
-                                   Point(1, end)]
-
-            self.curve = Bezier(self.control_points)
-            deriv = self.curve["timewise_deriv"].get_y()
-
-
+    return curve
