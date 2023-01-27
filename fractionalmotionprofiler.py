@@ -19,8 +19,9 @@ def g(t, meeting_time=1):
 
 def generate_curve(meeting_time, res=0.01):
     result = []
+    func_used = f
     for t in frange(0, meeting_time, res):
-        val = fractional_integral(2, t, f)
+        val = fractional_integral(2, t, func_used)
         result.append(val)
 
         for p in frange(0, 4, 0.5):
