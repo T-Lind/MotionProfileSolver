@@ -6,3 +6,6 @@ def frange(a, b, step):
 
 def within_range(x, y, range):
     return x-range < y < x+range
+
+class NoneTypeException(Exception):
+    pass

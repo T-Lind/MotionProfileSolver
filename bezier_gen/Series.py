@@ -1,5 +1,5 @@
 import math
-
+from util import NoneTypeException
 
 class Point:
     def __init__(self, x, y):
@@ -22,8 +22,10 @@ class Point:
         return "X: " + str(self.x) + " Y: " + str(self.y) + "\n"
 
 
-
 class Series:
+    """
+    Object
+    """
     def __init__(self, values: list[Point] = None):
         if values is None:
             self._values = []
@@ -36,6 +38,9 @@ class Series:
     def __len__(self):
         return len(self._values)
 
+    def __getitem__(self, index):
+        return self._values[index]
+
     def get(self, index):
         return self._values[index]
 
@@ -43,8 +48,14 @@ class Series:
         self._values.append(item)
 
     def get_x(self):
+        Series.none_check(self._values)
         return [pt.x for pt in self._values]
 
     def get_y(self):
+        Series.none_check(self._values)
         return [pt.y for pt in self._values]
 
+    @staticmethod
+    def none_check(item):
+        if item is None:
+            raise NoneTypeException("Item retrieved was None!")

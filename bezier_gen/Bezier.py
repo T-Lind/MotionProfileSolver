@@ -29,8 +29,8 @@ class Bezier:
         points = self.data["points"]
         self.data["timewise_deriv"] = Series()
         for i in range(0, len(points) - 1):
-            pt0 = points.get(i)
-            pt1 = points.get(i + 1)
+            pt0 = points[i]
+            pt1 = points[i+1]
             self.data["timewise_deriv"].append(Point(pt0.x, (pt1.y - pt0.y) / (pt1.x - pt0.x)))
 
     def __call__(self):
